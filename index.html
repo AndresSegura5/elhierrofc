@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>El Hierro Film Commission</title>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+      <script src="styles.obf.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+   </head>
+   <body>
+      <nav class="navbar" id="navbar">
+         <div class="nav-logo"><img src="logo.png" alt="El Hierro Film Commission" class="logo-img"></div>
+         <button class="nav-toggle" id="navToggle" aria-label="Menú"><span></span><span></span><span></span></button>
+         <ul class="nav-links" id="navLinks">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#paisajes">Paisajes</a></li>
+            <li><a href="#rodaje">Rodaje</a></li>
+            <li><a href="#logistica">Logística</a></li>
+            <li><a href="#concursos">Concursos</a></li>
+            <li><a href="#directorio">Directorio</a></li>
+         </ul>
+         <div class="nav-actions"><button class="btn-login" id="openLogin">Iniciar sesión</button> <button class="btn-register" id="openRegister">Inscribirse</button></div>
+      </nav>
+      <section class="hero" id="inicio">
+         <div class="hero-overlay"></div>
+         <div class="hero-film-strip top"></div>
+         <div class="hero-film-strip bottom"></div>
+         <div class="hero-content">
+            <p class="hero-tagline">FILM COMMISSION · CANARY ISLANDS</p>
+            <h1 class="hero-title">El Hierro<br><span>Tu próxima<br>localización de rodaje</span></h1>
+            <p class="hero-desc">La isla más occidental de Europa. Paisajes volcánicos únicos, cielos protegidos y una logística a medida para producciones de cualquier escala.</p>
+            <div class="hero-btns"><button class="btn-primary" id="heroCTA">Explorar localizaciones</button> <button class="btn-outline" id="heroRegister">Inscribirse como profesional</button></div>
+         </div>
+         <div class="hero-scroll">
+            <span>Desplázate</span>
+            <div class="scroll-line"></div>
+         </div>
+      </section>
+      <div class="stats-bar">
+         <div class="stat-item"><span class="stat-number">278 km²</span> <span class="stat-label">Superficie</span></div>
+         <div class="stat-divider"></div>
+         <div class="stat-item"><span class="stat-number">+120</span> <span class="stat-label">Localizaciones</span></div>
+         <div class="stat-divider"></div>
+         <div class="stat-item"><span class="stat-number">320</span> <span class="stat-label">Días de sol/año</span></div>
+         <div class="stat-divider"></div>
+         <div class="stat-item"><span class="stat-number">UNESCO</span> <span class="stat-label">Reserva Biosfera</span></div>
+      </div>
+      <section class="section-dark" id="paisajes">
+         <div class="container">
+            <div class="section-header">
+               <span class="section-tag">DIRECTORIO DE LOCALIZACIONES</span>
+               <h2>Paisajes de El Hierro</h2>
+               <p>Un territorio de contrastes extremos: acantilados, bosques de laurisilva, desiertos de lava y aguas cristalinas.</p>
+            </div>
+            <div class="filter-bar"><button class="filter-btn active" data-filter="all">Todos</button> <button class="filter-btn" data-filter="costa">Costa</button> <button class="filter-btn" data-filter="interior">Interior</button> <button class="filter-btn" data-filter="volcanico">Volcánico</button> <button class="filter-btn" data-filter="bosque">Bosque</button></div>
+            <div class="locations-grid" id="locationsGrid">
+               <div class="location-card" data-category="volcanico">
+                  <div class="card-img" style="background-image:url('assets/images/locations/lajiales-verodal.jpg')">
+                     <div class="card-badge">Volcánico</div>
+                  </div>
+                  <div class="card-info">
+                     <h3>Lajiales del Verodal</h3>
+                     <p>Extensión de lava negra frente al Atlántico. Perfecta para escenas post-apocalípticas o sci-fi.</p>
+                     <div class="card-meta"><span><i class="fa-solid fa-location-dot"></i> El Golfo</span> <span><i class="fa-solid fa-sun"></i> Amanecer / Atardecer</span></div>
+                     <button class="card-btn" onclick="openLocationDetail('Lajiales del Verodal')">Ver ficha técnica</button>
+                  </div>
+               </div>
+               <div class="location-card" data-category="costa">
+                  <div class="card-img" style="background-image:url('assets/images/locations/charco-azul.jpg')">
+                     <div class="card-badge">Costa</div>
+                  </div>
+                  <div class="card-info">
+                     <h3>Charco Azul</h3>
+                     <p>Piscina natural de aguas turquesas entre rocas volcánicas. Escenario único para producciones de aventura.</p>
+                     <div class="card-meta"><span><i class="fa-solid fa-location-dot"></i> San Andrés</span> <span><i class="fa-solid fa-sun"></i> Todo el año</span></div>
+                     <button class="card-btn" onclick="openLocationDetail('Charco Azul')">Ver ficha técnica</button>
+                  </div>
+               </div>
+               <div class="location-card" data-category="bosque">
+                  <div class="card-img" style="background-image:url('assets/images/locations/bosque-los-tiles.jpg')">
+                     <div class="card-badge">Bosque</div>
+                  </div>
+                  <div class="card-info">
+                     <h3>Bosque de Los Tiles</h3>
+                     <p>Laurisilva milenaria con niebla permanente. Atmósfera mágica y misteriosa, luz difusa natural.</p>
+                     <div class="card-meta"><span><i class="fa-solid fa-location-dot"></i> El Hierro Norte</span> <span><i class="fa-solid fa-smog"></i> Niebla constante</span></div>
+                     <button class="card-btn" onclick="openLocationDetail('Bosque de Los Tiles')">Ver ficha técnica</button>
+                  </div>
+               </div>
+               <div class="location-card" data-category="volcanico">
+                  <div class="card-img" style="background-image:url('assets/images/locations/malpaso.jpg')">
+                     <div class="card-badge">Volcánico</div>
+                  </div>
+                  <div class="card-info">
+                     <h3>Montaña de Malpaso</h3>
+                     <p>Cumbre volcánica con vistas abiertas a la isla y al Atlántico. Escala, horizonte y luz limpia para piezas de gran formato.</p>
+                     <div class="card-meta"><span><i class="fa-solid fa-location-dot"></i> Centro isla</span> <span><i class="fa-solid fa-film"></i> Acceso controlado</span></div>
+                     <button class="card-btn" onclick="openLocationDetail('Montaña de Malpaso')">Ver ficha técnica</button>
+                  </div>
+               </div>
+               <div class="location-card" data-category="interior">
+                  <div class="card-img" style="background-image:url('assets/images/locations/el-sabinar.jpg')">
+                     <div class="card-badge">Interior</div>
+                  </div>
+                  <div class="card-info">
+                     <h3>El Sabinar</h3>
+                     <p>Árboles de sabina esculpidos por el viento durante siglos. Formas surrealistas únicas en el mundo.</p>
+                     <div class="card-meta"><span><i class="fa-solid fa-location-dot"></i> El Hierro SW</span> <span><i class="fa-solid fa-wind"></i> Vientos Alisios</span></div>
+                     <button class="card-btn" onclick="openLocationDetail('El Sabinar')">Ver ficha técnica</button>
+                  </div>
+               </div>
+               <div class="location-card" data-category="costa">
+                  <div class="card-img" style="background-image:url('assets/images/locations/playa-verodal.jpg')">
+                     <div class="card-badge">Costa</div>
+                  </div>
+                  <div class="card-info">
+                     <h3>Playa del Verodal</h3>
+                     <p>Arena roja volcánica frente al océano abierto. La playa más espectacular y fotogénica de Canarias.</p>
+                     <div class="card-meta"><span><i class="fa-solid fa-location-dot"></i> Noroeste</span> <span><i class="fa-solid fa-palette"></i> Arena roja</span></div>
+                     <button class="card-btn" onclick="openLocationDetail('Playa del Verodal')">Ver ficha técnica</button>
+                  </div>
+               </div>
+            </div>
+            <div class="map-showcase">
+               <div class="map-showcase-copy">
+                  <div class="map-showcase-head">
+                     <span class="section-tag">MAPA DE RODAJE</span>
+                     <h3>Mapa interactivo de localizaciones</h3>
+                     <p>Una vista profesional de scouting para detectar rápidamente zonas, accesos y tipologías de paisaje dentro de la isla.</p>
+                  </div>
+                  <div class="map-stats">
+                     <div class="map-stat"><strong>6</strong> <span>spots destacados</span></div>
+                     <div class="map-stat"><strong>4</strong> <span>categorías visuales</span></div>
+                     <div class="map-stat"><strong>1</strong> <span>base insular conectada</span></div>
+                  </div>
+                  <div class="map-location-list" id="mapLocationList"></div>
+               </div>
+               <div class="map-shell">
+                  <div class="map-frame">
+                     <div id="filmMap" class="film-map" aria-label="Mapa de El Hierro con localizaciones destacadas"></div>
+                  </div>
+                  <div class="map-legend"><span><i class="legend-dot costa"></i>Costa</span> <span><i class="legend-dot interior"></i>Interior</span> <span><i class="legend-dot volcanico"></i>Volcánico</span> <span><i class="legend-dot bosque"></i>Bosque</span></div>
+               </div>
+            </div>
+            <div class="section-cta"><button class="btn-primary" onclick="requireLogin()">Ver directorio completo (+120 localizaciones)</button></div>
+         </div>
+      </section>
+      <section class="section-light" id="rodaje">
+         <div class="container">
+            <div class="section-header dark">
+               <span class="section-tag dark">PRODUCCIÓN</span>
+               <h2 class="dark">Posibilidades de Rodaje</h2>
+               <p class="dark">El Hierro ofrece una variedad de ambientes únicos que cubren desde el drama histórico hasta el cine de ciencia ficción.</p>
+            </div>
+            <div class="production-grid">
+               <div class="production-card">
+                  <span class="prod-kicker">Largos de escala</span>
+                  <div class="prod-icon"><i class="fa-solid fa-film"></i></div>
+                  <h3>Largometrajes</h3>
+                  <p>Infraestructura para producciones de gran formato. Permisos unificados, liaisons de producción y apoyo institucional.</p>
+                  <ul>
+                     <li>Permiso único Film Commission</li>
+                     <li>Coordinación con Cabildo</li>
+                     <li>Base de producción disponible</li>
+                     <li>Incentivos fiscales canarios</li>
+                  </ul>
+               </div>
+               <div class="production-card featured">
+                  <span class="prod-kicker">Entrada ideal</span>
+                  <div class="prod-icon"><i class="fa-solid fa-trophy"></i></div>
+                  <h3>Cortometrajes</h3>
+                  <p>El formato ideal para descubrir la isla. Facilidades especiales para directores emergentes y escuelas de cine.</p>
+                  <ul>
+                     <li>Permisos gratuitos hasta 5 días</li>
+                     <li>Red de alojamiento preferente</li>
+                     <li>Mentoring de producción local</li>
+                     <li>Difusión institucional garantizada</li>
+                  </ul>
+                  <span class="card-featured-label">MÁS SOLICITADO</span>
+               </div>
+               <div class="production-card">
+                  <span class="prod-kicker">Continuidad narrativa</span>
+                  <div class="prod-icon"><i class="fa-solid fa-tv"></i></div>
+                  <h3>Series / Streaming</h3>
+                  <p>Localizaciones exclusivas para producciones serializadas. Contratos de exclusividad temporal disponibles.</p>
+                  <ul>
+                     <li>Reserva de localizaciones</li>
+                     <li>Exclusividad temporal</li>
+                     <li>Contrato con productoras locales</li>
+                     <li>Scouting profesional incluido</li>
+                  </ul>
+               </div>
+               <div class="production-card">
+                  <span class="prod-kicker">Producción ágil</span>
+                  <div class="prod-icon"><i class="fa-solid fa-camera"></i></div>
+                  <h3>Spots / Fotografía</h3>
+                  <p>Sesiones comerciales, videoclips musicales y campañas de moda en los entornos más exclusivos.</p>
+                  <ul>
+                     <li>Permisos express 48h</li>
+                     <li>Estilismo y producción local</li>
+                     <li>Equipos de iluminación</li>
+                     <li>Drone y aéreo autorizado</li>
+                  </ul>
+               </div>
+               <div class="production-card">
+                  <span class="prod-kicker">Territorio y memoria</span>
+                  <div class="prod-icon"><i class="fa-solid fa-masks-theater"></i></div>
+                  <h3>Documentales</h3>
+                  <p>La naturaleza y cultura de El Hierro como protagonista. Acceso a zonas restringidas para documentalistas acreditados.</p>
+                  <ul>
+                     <li>Acceso a Reserva Marina</li>
+                     <li>Permiso fauna protegida</li>
+                     <li>Guías naturalistas</li>
+                     <li>Archivo histórico disponible</li>
+                  </ul>
+               </div>
+               <div class="production-card">
+                  <span class="prod-kicker">Nativo digital</span>
+                  <div class="prod-icon"><i class="fa-solid fa-gamepad"></i></div>
+                  <h3>Contenido Digital / VR</h3>
+                  <p>Escaneo 3D y fotogrametría de localizaciones. La isla como escenario virtual para videojuegos y experiencias inmersivas.</p>
+                  <ul>
+                     <li>Escaneo 3D de localizaciones</li>
+                     <li>Captura 360° autorizada</li>
+                     <li>Assets digitales disponibles</li>
+                     <li>Colaboración con tech startups</li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="genres-section">
+         <div class="container">
+            <div class="section-header">
+               <span class="section-tag">ATMÓSFERAS</span>
+               <h2>¿Qué género quieres rodar?</h2>
+            </div>
+            <div class="genres-grid">
+               <div class="genre-card">
+                  <div class="genre-visual sci-fi"><span>SCI-FI</span></div>
+                  <p>Lava, desiertos volcánicos, atmósfera marciana</p>
+               </div>
+               <div class="genre-card">
+                  <div class="genre-visual thriller"><span>THRILLER</span></div>
+                  <p>Acantilados, niebla, bosques misteriosos</p>
+               </div>
+               <div class="genre-card">
+                  <div class="genre-visual drama"><span>DRAMA</span></div>
+                  <p>Pueblos auténticos, tradiciones, vida marina</p>
+               </div>
+               <div class="genre-card">
+                  <div class="genre-visual aventura"><span>AVENTURA</span></div>
+                  <p>Mar abierto, cuevas, senderos extremos</p>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="section-dark" id="logistica">
+         <div class="container">
+            <div class="section-header">
+               <span class="section-tag">PRODUCCIÓN</span>
+               <h2>Logística Integral</h2>
+               <p>Todo lo que necesitas para rodar, en un solo lugar.</p>
+            </div>
+            <div class="logistics-grid">
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-plane"></i></div>
+                  <h3>Accesos</h3>
+                  <p>Aeropuerto propio con vuelos directos desde Madrid y Tenerife. Puerto para transporte de equipos pesados.</p>
+               </div>
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-hotel"></i></div>
+                  <h3>Alojamiento</h3>
+                  <p>Red de hoteles, casas rurales y apartamentos para equipos de cualquier tamaño. Tarifas preferentes para producciones.</p>
+               </div>
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-video"></i></div>
+                  <h3>Equipamiento</h3>
+                  <p>Alquiler de cámaras, grúas, drones y equipos de iluminación. Empresas de servicios audiovisuales locales certificadas.</p>
+               </div>
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-users"></i></div>
+                  <h3>Talento Local</h3>
+                  <p>Base de datos de actores, extras, técnicos y productores canarios disponibles para producciones.</p>
+               </div>
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                  <h3>Permisos</h3>
+                  <p>Ventanilla única para todos los permisos de rodaje. Tramitación exprés en 72h para producciones registradas.</p>
+               </div>
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-coins"></i></div>
+                  <h3>Incentivos Fiscales</h3>
+                  <p>Deducción del 40% en IRPF para producciones en Canarias. Asesoramiento fiscal especializado incluido.</p>
+               </div>
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-globe"></i></div>
+                  <h3>Comunicaciones</h3>
+                  <p>Cobertura 4G/5G en toda la isla. Fibra óptica en núcleos urbanos. Streaming en directo desde cualquier localización.</p>
+               </div>
+               <div class="logistics-item">
+                  <div class="log-icon"><i class="fa-solid fa-utensils"></i></div>
+                  <h3>Catering</h3>
+                  <p>Empresas de catering especializadas en producciones de cine. Cocina local e internacional para equipos internacionales.</p>
+               </div>
+            </div>
+            <div class="logistics-process">
+               <h3>Proceso de solicitud</h3>
+               <div class="process-steps">
+                  <div class="step">
+                     <div class="step-num">01</div>
+                     <h4>Registro</h4>
+                     <p>Crea tu perfil profesional en nuestra plataforma</p>
+                  </div>
+                  <div class="step-arrow">→</div>
+                  <div class="step">
+                     <div class="step-num">02</div>
+                     <h4>Solicitud</h4>
+                     <p>Rellena el formulario de proyecto con fechas y necesidades</p>
+                  </div>
+                  <div class="step-arrow">→</div>
+                  <div class="step">
+                     <div class="step-num">03</div>
+                     <h4>Scouting</h4>
+                     <p>Visita guiada de localizaciones con nuestro equipo</p>
+                  </div>
+                  <div class="step-arrow">→</div>
+                  <div class="step">
+                     <div class="step-num">04</div>
+                     <h4>¡Rueda!</h4>
+                     <p>Apoyo completo durante todo el rodaje</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="section-light" id="concursos">
+         <div class="container">
+            <div class="section-header dark">
+               <span class="section-tag dark">CERTÁMENES</span>
+               <h2 class="dark">Concursos de Cortometraje</h2>
+               <p class="dark">Convocatorias abiertas para cineastas de todo el mundo con El Hierro como protagonista.</p>
+            </div>
+            <div class="contests-grid">
+               <div class="contest-card featured-contest">
+                  <div class="contest-header">
+                     <span class="contest-edition">XV EDICIÓN · 2026</span>
+                     <div class="contest-prize"><span class="prize-label">Premio Principal</span> <span class="prize-amount">15.000€</span></div>
+                  </div>
+                  <h3>Festival Internacional de Cortometrajes El Hierro</h3>
+                  <p>El certamen más importante de las Islas Canarias, con sección oficial internacional, competición nacional y sección joven.</p>
+                  <div class="contest-details">
+                     <div class="contest-detail"><span class="detail-label">Inscripciones</span> <span class="detail-value">Abiertas hasta 30 Junio 2026</span></div>
+                     <div class="contest-detail"><span class="detail-label">Categorías</span> <span class="detail-value">Internacional · Nacional · Joven</span></div>
+                     <div class="contest-detail"><span class="detail-label">Duración máx.</span> <span class="detail-value">20 minutos</span></div>
+                     <div class="contest-detail"><span class="detail-label">Celebración</span> <span class="detail-value">Octubre 2026 · Valverde</span></div>
+                  </div>
+                  <div class="contest-prizes">
+                     <div class="prize-item"><i class="fa-solid fa-medal" style="color:gold"></i> Mejor Cortometraje: 15.000€</div>
+                     <div class="prize-item"><i class="fa-solid fa-medal" style="color:silver"></i> Mejor Dirección: 5.000€</div>
+                     <div class="prize-item"><i class="fa-solid fa-medal" style="color:#cd7f32"></i> Mejor Ópera Prima: 3.000€</div>
+                     <div class="prize-item"><i class="fa-solid fa-award"></i> Premio del Público: 2.000€</div>
+                  </div>
+                  <button class="btn-primary" onclick="requireLogin()">Inscribirse al Festival</button>
+               </div>
+               <div class="contest-card">
+                  <div class="contest-header">
+                     <span class="contest-edition">BECA 2026</span>
+                     <div class="contest-prize small"><span class="prize-label">Dotación</span> <span class="prize-amount">8.000€</span></div>
+                  </div>
+                  <h3>Beca de Producción Cine Volcánico</h3>
+                  <p>Ayuda a la producción de un cortometraje rodado íntegramente en El Hierro. Incluye alojamiento y apoyo logístico.</p>
+                  <div class="contest-details">
+                     <div class="contest-detail"><span class="detail-label">Plazo</span> <span class="detail-value">15 Abril 2026</span></div>
+                     <div class="contest-detail"><span class="detail-label">Requisito</span> <span class="detail-value">Rodaje 100% en El Hierro</span></div>
+                  </div>
+                  <button class="btn-outline dark" onclick="requireLogin()">Ver bases completas</button>
+               </div>
+               <div class="contest-card">
+                  <div class="contest-header">
+                     <span class="contest-edition">MÓVIL · 2026</span>
+                     <div class="contest-prize small"><span class="prize-label">Premio</span> <span class="prize-amount">3.000€</span></div>
+                  </div>
+                  <h3>Concurso de Cine con Móvil</h3>
+                  <p>Para jóvenes realizadores de 16 a 30 años. Solo se puede usar smartphone. Sin límites de creatividad.</p>
+                  <div class="contest-details">
+                     <div class="contest-detail"><span class="detail-label">Edad</span> <span class="detail-value">16 - 30 años</span></div>
+                     <div class="contest-detail"><span class="detail-label">Duración</span> <span class="detail-value">Máx. 5 minutos</span></div>
+                  </div>
+                  <button class="btn-outline dark" onclick="requireLogin()">Participar</button>
+               </div>
+               <div class="contest-card">
+                  <div class="contest-header">
+                     <span class="contest-edition">RESIDENCIA · 2026</span>
+                     <div class="contest-prize small"><span class="prize-label">Duración</span> <span class="prize-amount">3 meses</span></div>
+                  </div>
+                  <h3>Residencia de Desarrollo de Proyectos</h3>
+                  <p>Residencia artística para guionistas y directores. Alojamiento y manutención en El Hierro durante 3 meses.</p>
+                  <div class="contest-details">
+                     <div class="contest-detail"><span class="detail-label">Plazas</span> <span class="detail-value">4 cineastas</span></div>
+                     <div class="contest-detail"><span class="detail-label">Convocatoria</span> <span class="detail-value">Mayo 2026</span></div>
+                  </div>
+                  <button class="btn-outline dark" onclick="requireLogin()">Solicitar plaza</button>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="section-dark" id="directorio">
+         <div class="container">
+            <div class="section-header">
+               <span class="section-tag">CINE · TEATRO · AUDIOVISUAL</span>
+               <h2>Directorio Escénico y Audiovisual</h2>
+               <p>Talento herreño y canario, creadores vinculados a la isla y empresas que hacen posible rodar en El Hierro.</p>
+            </div>
+            <div class="directory-showcase">
+               <div class="directory-intro-card">
+                  <span class="directory-kicker">Red conectada desde la isla</span>
+                  <h3>Perfiles, productoras y festivales listos para activar un rodaje con criterio local.</h3>
+                  <p>Esta selección combina nombres reconocibles, talento vinculado a El Hierro y agentes que ya entienden la escala, la logística y el lenguaje audiovisual del territorio.</p>
+               </div>
+               <div class="directory-highlights">
+                  <div class="directory-highlight">
+                     <span class="highlight-value">Talento</span>
+                     <p>Actrices, actores y dirección con recorrido nacional e internacional.</p>
+                  </div>
+                  <div class="directory-highlight">
+                     <span class="highlight-value">Producción</span>
+                     <p>Empresas con capacidad operativa para rodajes, servicios y coordinación en Canarias.</p>
+                  </div>
+                  <div class="directory-highlight">
+                     <span class="highlight-value">Ecosistema</span>
+                     <p>Festivales y plataformas culturales que conectan la isla con la industria.</p>
+                  </div>
+               </div>
+            </div>
+            <div class="dir-toolbar">
+               <div class="dir-toolbar-copy">
+                  <span class="dir-toolbar-label">Filtrar por tipo</span>
+                  <p>Explora el directorio según el perfil que necesitas para tu producción.</p>
+               </div>
+               <div class="dir-filter-bar" id="dirFilterBar"><button class="dir-filter active" data-cat="all">Todos</button> <button class="dir-filter" data-cat="actor">Actores</button> <button class="dir-filter" data-cat="director">Directores</button> <button class="dir-filter" data-cat="empresa">Empresas</button> <button class="dir-filter" data-cat="festival">Festivales</button></div>
+               <div class="dir-results" id="dirResults" aria-live="polite"></div>
+            </div>
+            <div class="directory-grid" id="dirGrid">
+               <div class="directory-card" data-cat="actor festival">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/aida-ballmann.jpg" alt="Aïda Ballmann" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#c9a227">A</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Aïda Ballmann</h4>
+                        <span class="dir-role">Actriz · Directora · Festival Insularia</span>
+                        <p>Nacida en El Hierro en 1985, es la figura audiovisual más relevante de la isla. Estudió Arte Dramático en Gijón y Sevilla. Ha protagonizado <em>El tiempo entre costuras</em>, <em>Crossfire</em> y <em>Lo que escondían sus ojos</em>. Mejor Actriz en el Cardiff International Film Festival (2013). Desde 2016, directora artística del <strong>Festival Internacional Insularia</strong>, primer festival hispanohablante de cine insular del mundo.</p>
+                        <div class="dir-tags"><span>El Hierro</span><span>Nacida en la isla</span><span>Festival Insularia</span><span>Premio Leoncio Morales</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="actor">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/candela-pena.jpg" alt="Candela Peña" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#b91c1c">C</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Candela Peña</h4>
+                        <span class="dir-role">Actriz protagonista · Serie <em>Hierro</em></span>
+                        <p>Tres premios Goya (Mejor Actriz por <em>Princesas</em>, 2005; Reparto por <em>Te doy mis ojos</em> y <em>Un arma en cada mano</em>). Premio Ondas 2019 a Mejor Actriz por su papel de la jueza Candela Montes en la serie <em>Hierro</em> (Movistar+), rodada íntegramente en la isla durante dos temporadas.</p>
+                        <div class="dir-tags"><span>Serie Hierro</span><span>3× Goya</span><span>Premio Ondas</span><span>Movistar+</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="actor">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/dario-grandinetti.jpg" alt="Darío Grandinetti" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#1d4ed8">D</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Darío Grandinetti</h4>
+                        <span class="dir-role">Actor · Serie <em>Hierro</em> · Almodóvar</span>
+                        <p>Actor argentino protagonista de <em>Hierro</em> como el sospechoso Antonio Díaz. Ha trabajado con Pedro Almodóvar (<em>Hable con ella</em>), Damián Szifron (<em>Relatos salvajes</em>) y obtenido el primer Emmy Internacional para un actor argentino (2012).</p>
+                        <div class="dir-tags"><span>Serie Hierro</span><span>Emmy Internacional</span><span>Almodóvar</span><span>Relatos salvajes</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="actor">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/antonia-san-juan.jpg" alt="Antonia San Juan" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#7c3aed">A</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Antonia San Juan</h4>
+                        <span class="dir-role">Actriz · Canaria · Serie <em>Hierro</em></span>
+                        <p>Nacida en Las Palmas de Gran Canaria. Icono del cine de Almodóvar por La Agrado en <em>Todo sobre mi madre</em> (1999, Palme d'Or Cannes). Conocida también por <em>La que se avecina</em>. Participó en la serie <em>Hierro</em>, aportando presencia canaria al reparto.</p>
+                        <div class="dir-tags"><span>Canaria</span><span>Serie Hierro</span><span>Almodóvar</span><span>La que se avecina</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="actor">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/kimberley-tell.jpg" alt="Kimberley Tell" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#0f766e">K</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Kimberley Tell</h4>
+                        <span class="dir-role">Actriz · Serie <em>Hierro</em> T1 y T2 · RTVE</span>
+                        <p>Actriz y cantante nacida en Lanzarote (1989). Participó en ambas temporadas de <em>Hierro</em> como Pilar Díaz. Protagonizó <em>ENA</em> (RTVE, 2024) como la reina Victoria Eugenia y ha aparecido en <em>Buscando el norte</em> y <em>Algo que celebrar</em>. También artista musical con su EP <em>135</em>.</p>
+                        <div class="dir-tags"><span>Canaria</span><span>Serie Hierro</span><span>RTVE · ENA</span><span>Cantante</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="actor">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/matias-varela.jpg" alt="Matias Varela" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#92400e">M</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Matias Varela</h4>
+                        <span class="dir-role">Actor · <em>Hierro</em> T2 · <em>Narcos</em> · <em>Easy Money</em></span>
+                        <p>Actor sueco de origen gallego (Estocolmo, 1980). Conocido por la trilogía sueca <em>Easy Money</em> y por <em>Narcos</em> (Netflix) como jefe de seguridad del Cártel de Cali. Rodó en El Hierro la T2 de <em>Hierro</em> como Gaspar Cabrera, hijo de herreños criado en Miami.</p>
+                        <div class="dir-tags"><span>Serie Hierro T2</span><span>Narcos Netflix</span><span>Easy Money</span><span>Internacional</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="director">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/jorge-coira.jpg" alt="Jorge Coira" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#475569">J</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Jorge Coira</h4>
+                        <span class="dir-role">Director · <em>Hierro</em> · <em>Rapa</em> · Goya</span>
+                        <p>Director y montador gallego (Rábade, 1971). Premio Goya al Mejor Montaje 2016 por <em>El desconocido</em>. Dirigió las dos temporadas de <em>Hierro</em> (Movistar+, 2019–2022) rodadas íntegramente en la isla, y después <em>Rapa</em>. Uno de los cineastas que mejor conoce el territorio de El Hierro.</p>
+                        <div class="dir-tags"><span>Director serie Hierro</span><span>Goya Montaje</span><span>Rapa</span><span>Movistar+</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="actor">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/aina-clotet.jpg" alt="Aina Clotet" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#be185d">A</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Aina Clotet</h4>
+                        <span class="dir-role">Actriz · <em>Hierro</em> T2 · Festival de Málaga</span>
+                        <p>Actriz y directora barcelonesa (1982). Premio Biznaga de Plata a Mejor Actriz en Málaga 2019. Interpretó a Tamara Arias, la abogada rival de la jueza, en la segunda temporada de <em>Hierro</em> rodada en la isla.</p>
+                        <div class="dir-tags"><span>Serie Hierro T2</span><span>Premio Málaga</span><span>Directora</span><span>Catalunya</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="empresa">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/insularia-logo.png" alt="Portocabo" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#1e3a5f">P</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Portocabo</h4>
+                        <span class="dir-role">Productora · Creadora de <em>Hierro</em> y <em>Rapa</em></span>
+                        <p>Productora gallega fundada por Alfonso Blanco ("Fosco") en 2010. Creó <em>Hierro</em> (Movistar+/ARTE France, 2019–2022) y <em>Rapa</em> (Movistar+). Premio al Mejor Proyecto en la Berlinale 2015. Ha abierto sede en Las Palmas de Gran Canaria y es la productora con más propiedad intelectual de sus series en España.</p>
+                        <div class="dir-tags"><span>Productora</span><span>Hierro · Rapa</span><span>Movistar+</span><span>ARTE France</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="festival">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/insularia-logo.png" alt="Festival Insularia" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#c9a227">I</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Festival Insularia</h4>
+                        <span class="dir-role">Festival Internacional de Cine Insular · El Hierro</span>
+                        <p>Primer festival hispanohablante dedicado exclusivamente al cine producido en islas de todo el mundo. Sede principal en El Hierro. IX edición en octubre 2025. Incluye la sección competitiva <strong>KM.0 – Hecho en El Hierro</strong> para talentos herreños. Ha programado cine de Islandia, Cuba, Sri Lanka, Azores, Nueva Zelanda y más de 30 territorios insulares.</p>
+                        <div class="dir-tags"><span>El Hierro</span><span>Cine insular</span><span>KM.0</span><span>Aïda Ballmann</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="empresa">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/directory/las-hormigas-negras.png" alt="Las Hormigas Negras" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#1a1a1a">H</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Las Hormigas Negras</h4>
+                        <span class="dir-role">Productora · Servicios de Producción Canarias</span>
+                        <p>Productora canaria especializada en publicidad, TV, branded content y servicios integrales de producción para filmaciones internacionales en todo el archipiélago, incluido El Hierro. Estudio audiovisual propio de 350 m² en Gran Canaria. Alquiler de cámara, iluminación y grip. Fundada en 2013 por Mario Blanco y Luis Luque.</p>
+                        <div class="dir-tags"><span>Servicios producción</span><span>Canarias</span><span>Alquiler equipo</span><span>Estudio 350 m²</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+               <div class="directory-card" data-cat="festival">
+                  <div class="dir-media">
+                     <div class="dir-avatar-shell">
+                        <img class="dir-photo" src="assets/images/locations/bosque-los-tiles.jpg" alt="Bimbache openART Festival" loading="lazy" onerror="this.closest('.dir-avatar-shell').classList.add('is-fallback')">
+                        <div class="dir-avatar" style="background:#854d0e">B</div>
+                     </div>
+                     <div class="dir-info">
+                        <h4>Bimbache openART Festival</h4>
+                        <span class="dir-role">Festival de Arte Contemporáneo · El Hierro · desde 2005</span>
+                        <p>Festival multidisciplinar con sede en Frontera, El Hierro, activo desde 2005 (XX edición en 2025). Reconocido por la UNESCO en 2007. Integra música, danza, fotografía y producción de vídeos musicales rodados en localizaciones emblemáticas de la isla. Incluye <em>casArte</em>, residencia de artistas internacionales en El Hierro.</p>
+                        <div class="dir-tags"><span>El Hierro</span><span>Frontera</span><span>UNESCO</span><span>Residencia artistas</span></div>
+                     </div>
+                  </div>
+                  <button class="dir-contact" onclick="requireLogin()">Contactar</button>
+               </div>
+            </div>
+            <div class="section-cta"><button class="btn-primary" onclick="requireLogin()">Acceder al directorio completo</button> <button class="btn-outline" onclick="openRegisterModal()">Añadir mi perfil profesional</button></div>
+         </div>
+      </section>
+      <footer class="footer">
+         <div class="container">
+            <div class="footer-grid">
+               <div class="footer-brand">
+                  <div class="nav-logo"><img src="logo.png" alt="El Hierro Film Commission" class="logo-img"></div>
+                  <p>La Film Commission oficial de El Hierro, impulsando la industria audiovisual en la isla más occidental de Europa.</p>
+                  <div class="footer-social"><a href="#" class="social-link">Instagram</a> <a href="#" class="social-link">YouTube</a> <a href="#" class="social-link">Vimeo</a></div>
+               </div>
+               <div class="footer-col">
+                  <h4>Servicios</h4>
+                  <ul>
+                     <li><a href="#paisajes">Directorio localizaciones</a></li>
+                     <li><a href="#rodaje">Permisos de rodaje</a></li>
+                     <li><a href="#logistica">Logística</a></li>
+                     <li><a href="#directorio">Red profesional</a></li>
+                  </ul>
+               </div>
+               <div class="footer-col">
+                  <h4>Certámenes</h4>
+                  <ul>
+                     <li><a href="#concursos">Festival Internacional</a></li>
+                     <li><a href="#concursos">Beca Cine Volcánico</a></li>
+                     <li><a href="#concursos">Concurso Móvil</a></li>
+                     <li><a href="#concursos">Residencias</a></li>
+                  </ul>
+               </div>
+               <div class="footer-col">
+                  <h4>Contacto</h4>
+                  <ul>
+                     <li><i class="fa-solid fa-envelope"></i> info@elhierrofilm.com</li>
+                     <li><i class="fa-solid fa-phone"></i> +34 922 551 000</li>
+                     <li><i class="fa-solid fa-location-dot"></i> Cabildo de El Hierro<br>Valverde, 38900</li>
+                  </ul>
+               </div>
+            </div>
+            <div class="footer-bottom">
+               <p>© 2026 El Hierro Film Commission · Cabildo Insular de El Hierro</p>
+               <div class="footer-links"><a href="#">Privacidad</a> <a href="#">Aviso legal</a> <a href="#">Cookies</a></div>
+            </div>
+         </div>
+      </footer>
+      <div class="modal-overlay" id="loginModal">
+         <div class="modal">
+            <button class="modal-close" id="closeLogin"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-logo"><img src="logo.png" alt="El Hierro Film Commission" class="logo-img logo-img-modal"></div>
+            <h2 class="modal-title">Acceso Profesional</h2>
+            <p class="modal-subtitle">Accede a localizaciones, permisos y la red de profesionales</p>
+            <form class="modal-form" id="loginForm" onsubmit="handleLogin(event)">
+               <div class="form-group"><label>Email profesional</label> <input type="email" id="loginEmail" placeholder="nombre@empresa.com" required></div>
+               <div class="form-group">
+                  <label>Contraseña</label>
+                  <div class="input-password"><input type="password" id="loginPassword" placeholder="••••••••" required> <button type="button" class="toggle-pwd" onclick="togglePwd('loginPassword', this)"><i class="fa-solid fa-eye"></i></button></div>
+               </div>
+               <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a> <button type="submit" class="btn-full">Iniciar sesión</button>
+            </form>
+            <div class="modal-divider"><span>o continúa con</span></div>
+            <div class="social-login"><button class="social-btn">Google</button> <button class="social-btn">LinkedIn</button></div>
+            <p class="modal-switch">¿No tienes cuenta? <a href="#" id="switchToRegister">Inscríbete gratis</a></p>
+         </div>
+      </div>
+      <div class="modal-overlay" id="registerModal">
+         <div class="modal modal-wide">
+            <button class="modal-close" id="closeRegister"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-logo"><img src="logo.png" alt="El Hierro Film Commission" class="logo-img logo-img-modal"></div>
+            <h2 class="modal-title">Inscripción Profesional</h2>
+            <p class="modal-subtitle">Únete a la comunidad audiovisual de El Hierro</p>
+            <form class="modal-form" id="registerForm" onsubmit="handleRegister(event)">
+               <div class="form-row">
+                  <div class="form-group"><label>Nombre</label> <input placeholder="Tu nombre" required></div>
+                  <div class="form-group"><label>Apellidos</label> <input placeholder="Tus apellidos" required></div>
+               </div>
+               <div class="form-group"><label>Email profesional</label> <input type="email" placeholder="nombre@empresa.com" required></div>
+               <div class="form-row">
+                  <div class="form-group">
+                     <label>Contraseña</label>
+                     <div class="input-password"><input type="password" id="regPassword" placeholder="Mínimo 8 caracteres" required minlength="8"> <button type="button" class="toggle-pwd" onclick="togglePwd('regPassword', this)"><i class="fa-solid fa-eye"></i></button></div>
+                  </div>
+                  <div class="form-group">
+                     <label>Confirmar contraseña</label>
+                     <div class="input-password"><input type="password" id="regPasswordConfirm" placeholder="Repite la contraseña" required> <button type="button" class="toggle-pwd" onclick="togglePwd('regPasswordConfirm', this)"><i class="fa-solid fa-eye"></i></button></div>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label>Perfil profesional</label> 
+                  <select required>
+                     <option value="">Selecciona tu perfil</option>
+                     <option>Director/a</option>
+                     <option>Productor/a</option>
+                     <option>Director/a de Fotografía</option>
+                     <option>Guionista</option>
+                     <option>Actor/Actriz</option>
+                     <option>Técnico de Sonido</option>
+                     <option>Editor/a / Montador/a</option>
+                     <option>Dirección de Arte</option>
+                     <option>Empresa Productora</option>
+                     <option>Otro</option>
+                  </select>
+               </div>
+               <div class="form-group"><label>País de residencia</label> <input placeholder="España, México, Argentina..." required></div>
+               <div class="form-group"><label>Descripción profesional (opcional)</label> <textarea placeholder="Cuéntanos brevemente sobre tu trabajo y proyectos..." rows="3"></textarea></div>
+               <div class="form-group checkbox-group"><label class="checkbox-label"><input type="checkbox" required> <span>Acepto los <a href="#">términos y condiciones</a> y la <a href="#">política de privacidad</a></span></label></div>
+               <div class="form-group checkbox-group"><label class="checkbox-label"><input type="checkbox"> <span>Quiero recibir noticias y convocatorias de El Hierro Film Commission</span></label></div>
+               <button type="submit" class="btn-full">Crear cuenta profesional</button>
+            </form>
+            <p class="modal-switch">¿Ya tienes cuenta? <a href="#" id="switchToLogin">Iniciar sesión</a></p>
+         </div>
+      </div>
+      <div class="modal-overlay" id="locationModal">
+         <div class="modal">
+            <button class="modal-close" id="closeLocation"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="modal-title" id="locationName">Ficha Técnica</h2>
+            <div class="location-detail" id="locationDetail"></div>
+         </div>
+      </div>
+      <div class="toast" id="toast"></div>
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script><script src="script.js"></script>
+   </body>
+</html>
